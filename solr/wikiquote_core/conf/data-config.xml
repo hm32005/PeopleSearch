@@ -1,0 +1,34 @@
+
+<dataConfig>
+	<dataSource type="FileDataSource" encoding="UTF-8" allowNonFile="true" />
+
+	<!-- <dataSource type="FileDataSource" encoding="UTF-8"/> -->
+	<document>
+		<entity name="page" processor="XPathEntityProcessor" stream="true" forEach="/mediawiki/page/" 
+		url="${dataimporter.request.dataFile}" transformer="RegexTransformer, DateFormatTransformer, wikipedia_solr.WikimediaToTextTransformer">
+			<!-- url="${dataimporter.request.solrHome}/first_172.xml" transformer="RegexTransformer,DateFormatTransformer, 
+				wikipedia_solr.WikimediaToTextTransformer" -->
+			<field column="id" xpath="/mediawiki/page/id" />
+			<field column="title" xpath="/mediawiki/page/title" />
+			<field column="wikimediaMarkup" xpath="/mediawiki/page/revision/text" />
+			<field column="timestamp" xpath="/mediawiki/page/revision/timestamp" dateTimeFormat="yyyy-MM-dd'T'hh:mm:ss'Z'" />
+			<field column="user" xpath="/mediawiki/page/revision/contributor/username" />
+
+			<!-- <field column="revision" xpath="/mediawiki/page/revision/id" />  <field 
+				column="userId" xpath="/mediawiki/page/revision/contributor/id" />  <field column="wikimediaMarkup" xpath="/mediawiki/page/revision/text" 
+				/> -->
+			<field column="$skipDoc" regex="^#REDIRECT .*" replaceWith="true" sourceColName="wikimediaMarkup" />
+
+			<field column="$skipDoc" regex="^Category:.*" replaceWith="true" sourceColName="title" />
+
+			<field column="$skipDoc" regex="^Wikipedia:.*" replaceWith="true" sourceColName="title" />
+
+			<field column="$skipDoc" regex="^Template.*" replaceWith="true" sourceColName="title" />
+
+			<field column="$skipDoc" regex="^Portal.*" replaceWith="true" sourceColName="title" />
+
+			<field column="$skipDoc" regex=".*disambiguation.*" replaceWith="true" sourceColName="title" />
+
+		</entity>
+	</document>
+</dataConfig>

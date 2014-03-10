@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>People Search Portal</title>
+
+<!--     <link href="../../content/shared/styles/examples-offline.css" rel="stylesheet"> -->
+<link href="styles/kendo.common.min.css" rel="stylesheet">
+<link href="styles/kendo.default.min.css" rel="stylesheet">
+<link href="styles/kendo.silver.min.css" rel="stylesheet">
+
+<style>
+	
+	#pageWrapper{
+		width: 1260px;
+		height: 1000px;
+		margin-left: auto;
+		margin-right: auto;
+		background-color:#D5FFEE;
+		
+	}
+	#header{
+		position: relative;
+		left: 550px;
+		top: -20px;
+	
+
+	}
+	#caption{
+		position: relative;
+		top: -20px;
+		left: 10px;
+	}
+	#searchBox{
+		position: relative;
+		left: 440px;
+		top: -40px;
+	}
+	#helpBox{
+		height: 100px;
+		width: 300px;
+		position: relative;
+		top: -380px;
+		left: 70px;
+		border: 2px solid black;
+		
+
+	}
+	#hText{
+		position: relative;
+		top: 0px;
+		left: 100px;
+	}
+	#info{
+		position:relative;
+		left: 3px;
+	}
+	#example{
+		background-color:#D5FFEE;
+	}
+	#example2{
+		background-color:#D5FFEE;
+	}
+	#panel{
+		background-color:#D5FFEE;
+	}
+	
+	body
+{
+background-image:url('img/fantasy-people.jpg');
+background-repeat:repeat-y;
+} 
+#panel{
+        display: inline-block;
+        vertical-align: top;
+        width: 600px;
+		margin: 0px 0px 0px;
+        min-height: 200px;
+       background-color:#D5FFEE;
+    }
+    
+#image {
+	position: relative;
+	top: 0px;
+	left: 100px;	
+    max-width: 200px;
+    height: 200px;
+    border: 2px solid black;
+    
+}
+#vertical {
+	position: relative;
+	top: -515px;
+	height: 350px;
+	width: 1260px;
+	margin: 200px 0px;
+	background-color:#D5FFEE;
+}
+#bottom-pane-cloud2, #middle-pane-cloud {
+	background-color:#D5FFEE;
+	font-family: "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
+	color:#5832E8
+	}
+.pane-content {
+	font-family: "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
+	}
+
+#top-pane,#middle-pane,#bottom-pane{
+	overflow: auto;
+	background-color:#D5FFEE;
+	}
+#top-pane{
+	background-color:#E8E5D8;
+}
+#middle-pane{
+	background-color:#F2F5F2;
+}
+#bottom-pane{
+	background-color:#DBD8F5;
+}
+a:hover {
+color: red;
+text-decoration: underline;
+}
+
+a {
+color: 0187c5;
+text-decoration: none;
+}
+#middle-pane-cloud{
+	position:relative;
+	top: -325px;
+	left:425px;
+	width: 420px;
+	height: 245px;
+	overflow: auto;
+	background-image:url('img/CL04.png');
+	background-repeat: repeat-y;
+}
+
+#bottom-pane-cloud2{
+	position:relative;
+	top: -1325px;
+	left:850px;
+	width: 410px;
+	height: 245px;
+	overflow: auto;
+	background-image:url('img/CL04.png');
+	background-repeat: repeat-y;
+}
+#cldTxt{
+	position:relative;
+	top: -1625px;
+	left:850px;
+}
+#cldTxt2{
+	position:relative;
+	top: -1675px;
+	left:430px;
+}
+</style>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/kendo.web.min.js"></script>
+<!--     <script src="../../content/shared/js/console.js"></script> -->
+</head>
+<body>
+
+	<div id="pageWrapper">
+		<div id="example" class="k-content">
+		<div id="panel">
+			<div id="header">
+			<p><h1>People Search</h1></p>
+			<div id="caption"><h4>Powered by Wikipedia</h4></div></div>
+			<div id="searchBox"><input id="query" class="k-input" size="25" /> 
+	         <select id="wikisource" class="k-input" placeholder="Select Activity.">
+				<option>People Search</option>
+				<option>News Search</option>
+				<option>Quote Search</option>
+			</select>
+			<button id="search" class="k-button" style="text-align: center;" onclick="searchClickHandler()" >Search</button>
+		</div>
+		</div>
+		<div id="image">
+		</div>
+	</div>
+	<div id="helpBox">
+		<div id="hText">Helpbox</div>
+		<div id="info">Hover over any object for information!</div>
+	</div>
+	<div id="example2" class="k-content">
+		<div id="cloudWrapper">
+	<div id="middle-pane-cloud" >
+		<div id="mContent"><h6>People from News</h6</div>
+				
+	</div>
+			<div id="bottom-pane-cloud" >
+	<div id="bContent"><h6>People from Quotes</h6></div>				
+	</div>	
+	</div>
+		<div id="vertical">
+			<div id="top-pane">
+				<h3>Wikipedia Results</h3>
+				<div id="top-pane-content" class="pane-content">
+					
+				</div>
+			</div>
+			<div id="middle-pane">
+				<div class="pane-content">
+					<h3>Wikinews Results</h3>
+				</div>
+				<div id="middle-pane-content" class="pane-content">
+					
+				</div>
+					
+				
+			</div>
+			<div id="bottom-pane">
+				<div class="pane-content">
+					<h3>Wikiquote Results</h3>
+				</div>
+				<div id="bottom-pane-content" class="pane-content">
+					
+				</div>
+									
+			</div>
+		
+		</div>
+			
+	</div>
+	<div id="bottom-pane-cloud2">
+		
+	</div>
+	<div id="cldTxt"><h2>People from Quotes</h2></div>
+	<div id="cldTxt2"><h2>People from News</h2></div>
+</div>
+</body>
+
+<script>
+	$(document).ready(function() {
+		$("#vertical").kendoSplitter({ orientation : "horizontal",
+			panes : [ 
+		          { collapsible : true, resizable : true, size : "420px" }, 
+		          { collapsible : true, resizable : true, size : "420px" }, 
+		          { collapsible : true, resizable : true, size : "420px" } 
+			] 
+		});
+		
+		$("#image").bind('mouseover',mOverImg).bind('mouseout',mOut);
+		$("#top-pane").bind('mouseover',mOverTop).bind('mouseout',mOut);
+		$("#middle-pane").bind('mouseover',mOverMid).bind('mouseout',mOut);
+		$("#bottom-pane").bind('mouseover',mOverBot).bind('mouseout',mOut);
+		$("#query").bind('mouseover',mOverTxt).bind('mouseout',mOut);
+		$("#wikisource").bind('mouseover',mOverCom).bind('mouseout',mOut);
+		$("#search").bind('mouseover',mOverBut).bind('mouseout',mOut);
+		$("#helpBox").bind('mouseover',mOverHlp).bind('mouseout',mOut);
+		$("#bottom-pane-cloud2").bind('mouseover',mOverBpc).bind('mouseout',mOut);
+		$("#middle-pane-cloud").bind('mouseover',mOverMpc).bind('mouseout',mOut);
+		
+		var autocomplete = $("#query").kendoAutoComplete(
+			{
+				filter: "contains",
+				highlightFirst: false,
+				ignoreCase: false,
+				suggest: false,
+				dataTextField : "name", 
+				select: function(e) {
+			        var dataItem = this.dataItem(e.item.index());
+			        $('#query').val(dataItem.name);
+			        e.preventDefault();
+			    },
+				dataSource :
+					{
+						serverFiltering : true, transport :
+							{
+								read :
+									{
+										url : function (options) {
+											if(document.getElementById("wikisource").value=="People Search")
+											{
+												return "Wikipedia/suggest";
+											}
+											else if(document.getElementById("wikisource").value=="News Search")
+											{
+												return "Wikinews/suggest";
+											}
+											else if(document.getElementById("wikisource").value=="Quote Search")
+											{
+												return "Wikiquote/suggest";
+											}
+										}, 
+										serverPaging : true, type : "GET", dataType : "json"
+									}, 
+									
+									parameterMap : function(data) {
+										var suggquery = "\"" + $("#query").val() + "\"";
+										if(suggquery.indexOf(" ") !== -1 && $("#query").val().indexOf(" ") !== $("#query").val().length-1)
+											return {q : suggquery,take : data.take, skip : data.skip};
+										else
+											return {q : $("#query").val(),take : data.take, skip : data.skip};
+												
+									}
+							}, schema :
+							{
+								parse : function(rawData) {
+									var suggestion = [];
+									if(document.getElementById("wikisource").value=="News Search" || document.getElementById("wikisource").value=="Quote Search")
+									{
+										if(rawData.spellcheck == null)
+											return suggestion;
+										if (rawData.spellcheck.suggestions.length == 0)
+											return suggestion;
+										var collation = rawData.spellcheck.suggestions[rawData.spellcheck.suggestions.length - 1];
+										var editedResponse = "";
+										if (collation != null)
+											editedResponse = collation.replace(/["'()]/g,"");
+										if(editedResponse.length > 0){
+											var product =
+											{
+												id: 0, name : editedResponse
+											};
+											suggestion.push(product);
+										}
+										var response = rawData.spellcheck.suggestions[1].suggestion;
+										for (var i = 1; i < response.length; i++) {
+											
+											var product =
+											{
+												id: i, name : response[i]
+											};
+											suggestion.push(product);
+										}
+									}
+									else{
+										if (rawData.response.docs.length == 0)
+											return suggestion;
+										var response = rawData.response.docs;
+										for (var i = 0; i < response.length; i++) {
+											var product =
+												{
+													id: i, name : response[i].title
+												};
+											suggestion.push(product);
+										}
+									}
+									return suggestion;
+							}, 
+							model :
+							{
+								fields :
+								{
+									"name" :
+									{
+										type : "string"
+									}
+								}
+							}
+						}
+					}, 
+					height : 280,
+					separator: " "
+			});
+	});
+	
+	function mOverImg(){
+		$("#info").html("Displays image of the person, if the image exists.");
+	}
+	
+	function mOverTop(){
+		$("#info").html("Displays results from Wikipedia articles. The object is resizable horizontally.");
+	}
+	
+	function mOverMid(){
+		$("#info").html("Displays results from Wikinews articles. People related to the quotes found are also displayed in the end. The object is resizable horizontally.");
+	}
+	
+	function mOverBot(){
+		$("#info").html("Displays results from Wikiquote articles. People related to the news articles found are also displayed in the end. The object is resizable horizontally.");
+	}
+	
+	function mOverCom(){
+		$("#info").html("Select People to search for people. <br/> Select Quotes to find people from quotes. <br/> Select News to find people from news.");
+	}
+	
+	function mOverHlp(){
+		$("#info").html("Displays help information.");
+	}
+	
+	function mOverTxt(){
+		$("#info").html("Enter text here. Select an option from the combobox and then click search!");
+	}
+	
+	function mOverBut(){
+		$("#info").html("Click to search!");
+	}
+	
+		function mOverBpc(){
+		$("#info").html("Cloud results from Wikiquote pages. Font sizes are based on the weights ie; Most relavent have the highest font size!");
+	}
+	
+		function mOverMpc(){
+		$("#info").html("Cloud results from Wikinews articles. Font sizes are based on the weights ie; Most relavent have the highest font size!");
+	}
+	
+	function mOut(){
+		$("#info").html("Hover over any object for information!");
+	}
+	
+	
+	// Get Quote Cloud
+	
+	var dataSource_wikiquote_cloud = new kendo.data.DataSource(
+			{
+				serverFiltering : true, transport :
+					{
+						read :
+							{
+								url : "Wikiquote/cloudQuery", serverPaging : true, type : "GET", dataType : "json"
+							}, parameterMap : function(data) {
+							return	{
+									q : "*:*", take : data.take, skip : data.skip
+								};
+						}
+					}, schema :
+					{
+						parse : function(rawData) {
+							var suggestion = [];
+							if (rawData.facet_counts == null)
+								return suggestion;
+							if (rawData.facet_counts.facet_fields == null)
+								return suggestion;
+							if (rawData.facet_counts.facet_fields.names == null)
+								return suggestion;
+							if (rawData.facet_counts.facet_fields.names.length == 0)
+								return suggestion;
+							var response = rawData.facet_counts.facet_fields.names;
+							for (var i = 0; i < response.length; i+=2) {
+								var product =
+									{
+										id: i/2, word : response[i], count : response[i+1]
+									};
+								suggestion.push(product);
+							}
+							return suggestion;
+						}, model :
+							{
+								fields :
+									{
+										"id" :
+										{
+											type : "int"
+										}, 
+										"count" :
+										{
+											type : "int"
+										}, 
+										"word" :
+										{
+											type : "string"
+										}
+									}
+							}
+					}
+			});
+	
+	dataSource_wikiquote_cloud.fetch(function() {
+		var str="";
+		var maxWt = dataSource_wikiquote_cloud.get(0).count;
+		var max_fnt_size = 24.0;
+		var min_fnt_size = 12.0;
+		var keyword_weight_ratio = (max_fnt_size / maxWt);
+		
+		for (var i = 0; i < dataSource_wikiquote_cloud.data().length; i++) {
+			var word = dataSource_wikiquote_cloud.get(i).word;
+			var count = dataSource_wikiquote_cloud.get(i).count;
+			var font_size = Math.floor(keyword_weight_ratio * count);
+			if(font_size < min_fnt_size)
+				font_size = min_fnt_size;
+			str+="<span style=\"font-size: " + font_size + "px\"><a href=\"#\" onclick=\"peopleSearch('" + word + "');\">" + word + "</a></span> &nbsp;\n 			";
+		}
+		if(str==="")
+			str = "<em><b>No results found</b></em>";
+		document.getElementById("bottom-pane-cloud2").innerHTML=str;
+	});
+	
+	// Get News Cloud
+	
+	var dataSource_wikinews_cloud = new kendo.data.DataSource(
+			{
+				serverFiltering : true, transport :
+					{
+						read :
+							{
+								url : "Wikinews/cloudQuery", serverPaging : true, type : "GET", dataType : "json"
+							}, parameterMap : function(data) {
+							return	{
+									q : "createDate:[-1 YEARS TO *]", take : data.take, skip : data.skip
+								};
+						}
+					}, schema :
+					{
+						parse : function(rawData) {
+							var suggestion = [];
+							if (rawData.facet_counts == null)
+								return suggestion;
+							if (rawData.facet_counts.facet_fields == null)
+								return suggestion;
+							if (rawData.facet_counts.facet_fields.names == null)
+								return suggestion;
+							if (rawData.facet_counts.facet_fields.names.length == 0)
+								return suggestion;
+							var response = rawData.facet_counts.facet_fields.names;
+							for (var i = 0; i < response.length; i+=2) {
+								var product =
+									{
+										id: i/2, word : response[i], count : response[i+1]
+									};
+								suggestion.push(product);
+							}
+							return suggestion;
+						}, model :
+							{
+								fields :
+									{
+										"id" :
+										{
+											type : "int"
+										}, 
+										"count" :
+										{
+											type : "int"
+										}, 
+										"word" :
+										{
+											type : "string"
+										}
+									}
+							}
+					}
+			});
+	
+	dataSource_wikinews_cloud.fetch(function() {
+		var str="";
+		var maxWt = dataSource_wikinews_cloud.get(0).count;
+		var max_fnt_size = 24.0;
+		var min_fnt_size = 12.0;
+		var keyword_weight_ratio = (max_fnt_size / maxWt);
+		
+		for (var i = 0; i < dataSource_wikinews_cloud.data().length; i++) {
+			var word = dataSource_wikinews_cloud.get(i).word;
+			var count = dataSource_wikinews_cloud.get(i).count;
+			var font_size = Math.floor(keyword_weight_ratio * count);
+			if(font_size < min_fnt_size)
+				font_size = min_fnt_size;
+			str+="<span style=\"font-size: " + font_size + "px\"><a href=\"#\" onclick=\"peopleSearch('" + word + "');\">" + word + "</a></span> &nbsp;\n 			";
+		}
+		if(str==="")
+			str = "<em><b>No results found</b></em>";
+		document.getElementById("middle-pane-cloud").innerHTML=str;
+	});
+
+	function searchClickHandler() {
+			//cleanup
+			
+			document.getElementById("image").innerHTML = "";
+			document.getElementById("top-pane-content").innerHTML= "";
+			document.getElementById("middle-pane-content").innerHTML= "";
+			document.getElementById("bottom-pane-content").innerHTML= "";
+			var highlight="";
+			var wikiQuery=$("#query").val();
+			if(document.getElementById("wikisource").value=="News Search")
+			{
+				var dataSource_wikinews = new kendo.data.DataSource(
+				{
+					serverFiltering : true, transport :
+						{
+							read :
+								{
+									url : "Wikinews/query", serverPaging : true, type : "GET", dataType : "json"
+								}, parameterMap : function(data) {
+								return	{
+										q : wikiQuery, take : data.take, skip : data.skip
+									};
+							}
+						}, schema :
+						{
+							parse : function(rawData) {
+								var suggestion = [];
+								if (rawData.response.docs.length == 0)
+									return suggestion;
+								var response = rawData.response.docs;
+								for (var i = 0; i < response.length; i++) {
+									var product =
+										{
+											id: i, title : response[i].title, sectionParsed:response[i].sectionParsed
+										};
+									suggestion.push(product);
+								}
+								return suggestion;
+						}, model :
+						{
+							fields :
+							{
+									"id" :
+									{
+										type : "int"
+									}, 
+									"title" :
+									{
+										type : "string"
+									}, 
+									"sectionParsed":
+									{
+										type:"string"
+									}
+										
+								}
+							}
+						}
+					});
+					
+					dataSource_wikinews.fetch(function() {
+						var i=0;
+						wikiQuery = null;
+						if(dataSource_wikinews.data().length > 0)
+							{
+								while(wikiQuery == null || wikiQuery.length == 0)
+								{
+									wikiQuery=dataSource_wikinews.get(i).sectionParsed;
+									i=i+1;
+								}
+								while(wikiQuery.length<2)
+								{
+									i=i+1;
+									wikiQuery=dataSource_wikinews.get(i).sectionParsed;
+								}
+							}
+						else
+							wikiQuery="";
+						peopleSearch(wikiQuery);
+					});	
+			}	 
+		
+			else if(document.getElementById("wikisource").value=="Quote Search")
+			{
+				var dataSource_wikiquote = new kendo.data.DataSource(
+				{
+					serverFiltering : true, transport :
+					{
+						read :
+							{
+								url : "Wikiquote/query", serverPaging : true, type : "GET", dataType : "json"
+							}, parameterMap : function(data) {
+							return	{
+									q : wikiQuery, take : data.take, skip : data.skip
+								};
+						}
+					}, 
+					schema :
+					{
+						parse : function(rawData) {
+							var suggestion = [];
+							if (rawData.response.docs.length == 0)
+								return suggestion;
+							var response = rawData.response.docs;
+							for (var i = 0; i < response.length; i++) {
+								var product =
+									{
+										id: i, title : response[i].title, sectionParsed:response[i].sectionParsed
+									};
+								suggestion.push(product);
+							}
+							return suggestion;
+						}, model :
+						{
+							fields :
+							{
+								"id" :
+								{
+									type : "int"
+								}, 
+								"title" :
+									{
+										type : "string"
+									},
+									"sectionParsed":
+									{
+										type:"string"
+									}
+										
+							}
+						}
+					}
+				});
+					
+				dataSource_wikiquote.fetch(function() {
+					var i=0;
+					wikiQuery = null;
+					if(dataSource_wikiquote.data().length > 0)
+						{
+							while(wikiQuery == null || wikiQuery.length == 0)
+							{
+								wikiQuery=dataSource_wikiquote.get(i).sectionParsed;
+								i=i+1;
+							}
+							while(wikiQuery.length<2)
+							{
+								i=i+1;
+								wikiQuery=dataSource_wikiquote.get(i).sectionParsed;
+							}
+						}
+					else
+						wikiQuery="";
+					peopleSearch(wikiQuery);
+				});	
+		}
+		else if(document.getElementById("wikisource").value=="People Search")
+		{
+			peopleSearch(wikiQuery);
+		}	
+	}
+	
+	
+	function peopleSearch(query)
+	{
+		document.getElementById("image").innerHTML = "";
+		document.getElementById("top-pane-content").innerHTML= "";
+		document.getElementById("middle-pane-content").innerHTML= "";
+		document.getElementById("bottom-pane-content").innerHTML= "";
+		var highlight="";
+		var dataSource_wikipedia = new kendo.data.DataSource(
+		{
+			serverFiltering : true, transport :
+			{
+				read :
+					{
+						url : "Wikipedia/query", serverPaging : true, type : "GET", dataType : "json"
+					}, parameterMap : function(data) {
+					return	{
+							q : query, take : data.take, skip : data.skip, rows:"1"
+						};
+				}
+			}, 
+			schema :
+			{
+				parse : function(rawData) {
+					
+					var resp = rawData.highlighting;
+					for(jp in resp){
+						var j = "" + jp;
+						if(resp.hasOwnProperty(j)){
+							for(var prop in resp[j]){
+								if(prop === "articlePlainText"){
+									for(var improp in resp[j][prop]){
+								        if(resp[j][prop].hasOwnProperty(improp)){
+								        	var string = "" + prop;
+								        		highlight+= resp[j][prop][improp];
+										}
+									}
+								}
+							}
+						}
+					}
+					
+					
+					var suggestion = [];
+					if (rawData.response.docs.length == 0)
+						return suggestion;
+					var response = rawData.response.docs;
+					for (var i = 0; i < response.length; i++) {
+						var product =
+							{
+								id: i, title : response[i].title, imageLink : response[i].imageLink
+							};
+						suggestion.push(product);
+					}
+					return suggestion;
+				}, 
+				model :
+				{
+					fields :
+					{
+						"id" :
+						{
+							type : "int"
+						}, 
+						"title" :
+						{
+							type : "string"
+						}, 
+						"imageLink" :
+						{
+							type : "string"
+						}
+					}
+				}
+			}
+		});
+		dataSource_wikipedia.fetch(function() 
+		{
+			var str="";
+			if(dataSource_wikipedia.get(0) == null){
+				str = "<em><b>No results found</b></em>";
+				document.getElementById("top-pane-content").innerHTML=str;
+				document.getElementById("middle-pane-content").innerHTML=str;
+				document.getElementById("bottom-pane-content").innerHTML=str;
+				return;
+			}
+			var link = dataSource_wikipedia.get(0).title.replace(/ /g,"_");
+			var url = "http://en.wikipedia.org/wiki/" + link;
+			str+="<a href=" + url + "><em>" + dataSource_wikipedia.get(0).title + "</em>" + "</a><br><br>" + highlight + "<br>";
+			if(str==="")
+				str = "<em><b>No results found</b></em>";
+			document.getElementById("top-pane-content").innerHTML=str;
+			var imgLink = dataSource_wikipedia.get(0).imageLink;
+			
+			var title = dataSource_wikipedia.get(0).title;
+			var titleLink = "\"" + dataSource_wikipedia.get(0).title + "\"";
+			
+			var dataSource_wikipedia_img = new kendo.data.DataSource(
+			{
+				serverFiltering : true, 
+				transport :
+				{
+					read :
+						{
+							url : "http://en.wikipedia.org/w/api.php", serverPaging : true, type : "GET", dataType : "jsonp"
+						}, parameterMap : function(data) {
+						return	{
+							 	action : "query", titles: title, generator: "images", format : "json", gimlimit : "10", iiprop:"url", prop:"imageinfo"
+							};
+					}
+				}, 
+				schema :
+				{
+					parse : function(rawData) 
+					{
+						var suggestion = [];
+						if (rawData == null || rawData.query == null || rawData.query.length == 0)
+							return suggestion;
+						var response = rawData.query.pages;
+						var keys=[];
+						var count = 0;
+						for(j in response){
+
+					        var sub_key = j;
+					        var sub_val = response.j;
+					        keys[count] = sub_key;
+					        count++;
+
+					    }
+						for (var i = 0; i < Object.keys(response).length; i++) {
+							var product =
+								{
+									id: i, title : keys[i], content: response
+								};
+							suggestion.push(product);
+						}
+						return suggestion;
+					}, 
+					model :
+					{
+						fields :
+						{
+							"id" :
+							{
+								type : "int"
+							}, 
+							"title" :
+							{
+								type : "int"
+							}, 
+							"content" :
+							{
+								type : "int"
+							}, 
+						}
+					}
+				}
+			});
+			dataSource_wikipedia_img.fetch(function() 
+			{
+				var str="";
+				loop:
+				for (var i = 0; i < dataSource_wikipedia_img.data().length; i++) {
+					var dataItem = dataSource_wikipedia_img.get(i);
+					var response = dataItem.content;
+					loop2:
+					for(j in response){
+						if(response.hasOwnProperty(j)){
+							for(var prop in response[j]){
+						        if(response[j].hasOwnProperty(prop)){
+						        	var string = "" + prop;
+						        	if(prop==="title"){
+						        		if(response[j][prop].indexOf(imgLink) === -1){
+						        			continue loop2;
+						        		}
+						        		else{
+						        			break;
+						        		}
+						        	}
+						        }
+							}
+						    for(var prop in response[j]){
+						        if(response[j].hasOwnProperty(prop)){
+						        	var string = "" + prop;
+						        	if(prop==="imageinfo"){
+						     			 for(var improp in response[j][prop]){
+									        if(response[j][prop].hasOwnProperty(improp)){
+									        	var string = "" + prop;
+									        	if(improp==="0"){
+									     			for(var urlprop in response[j][prop][improp]){
+												        if(response[j][prop][improp].hasOwnProperty(urlprop)){
+												        	var string = "" + prop;
+												        	if(urlprop==="url"){
+												     			document.getElementById("image").innerHTML = "<img height = \"200\" width = \"200\" src=\"" +  response[j][prop][improp][urlprop] + "\"/>";
+	 											     			break loop;
+												     			
+												        	}
+												        }
+												    }
+									        	}
+									        }
+									    }
+						        	}
+						        }
+						    }
+						}
+					}
+				}
+			});
+				
+			// Query MLT Wikipedia
+			var MLTQuery = "title:\"" + title + "\"^75.0 +articlePlainText:\""+title+"\"^25.0 +";
+			var dataSource_wikipedia_MLT = new kendo.data.DataSource(
+			{
+				serverFiltering : true, transport :
+				{
+					read :
+						{
+							url : "Wikipedia/mlt", serverPaging : true, type : "GET", dataType : "json"
+						}, parameterMap : function(data) {
+						return	{
+								q : "articlePlainText:\""+title+"\" OR title:\""+title+"\"", take : data.take, skip : data.skip
+							};
+					}
+				}, 
+				schema :
+				{
+					parse : function(rawData) {
+						var suggestion = [];
+						if (rawData.response == null)
+							return suggestion;
+						var response = rawData.interestingTerms;
+						for (var i = 0; i < response.length; i++) {
+							var product =
+								{
+									id: i, terms : response[i]
+								};
+							suggestion.push(product);
+						}
+						return suggestion;
+					}, 
+					model :
+					{
+						fields :
+						{
+							"id" :
+							{
+								type : "int"
+							}, 
+							"terms" :
+							{
+								type : "string"
+							}
+						}
+					}
+				}
+			});
+				
+			dataSource_wikipedia_MLT.fetch(function() {
+				for (var i = 0; i < dataSource_wikipedia_MLT.data().length; i++) {
+					var dataItem = dataSource_wikipedia_MLT.get(i);
+					MLTQuery+=dataItem.terms+"+";
+				}
+				
+				//Query WikiNews
+				
+				highlight = "";
+				var highlightArray = [];
+				var dataSource_wikinews = new kendo.data.DataSource(
+						{
+							serverFiltering : true, transport :
+								{
+									read :
+										{
+											url : "Wikinews/query", serverPaging : true, type : "GET", dataType : "json"
+										}, parameterMap : function(data) {
+										return	{
+												q : MLTQuery, take : data.take, skip : data.skip, sort : "createDate desc", rows : "5"
+											};
+									}
+								}, schema :
+								{
+									parse : function(rawData) {
+										var resp = rawData.highlighting;
+										for(jp in resp){
+											var j = "" + jp;
+											if(resp.hasOwnProperty(j)){
+												for(var prop in resp[j]){
+													if(prop === "articlePlainText"){
+										     			highlight="";
+														for(var improp in resp[j][prop]){
+													        if(resp[j][prop].hasOwnProperty(improp)){
+													        	var string = "" + prop;
+													        		highlight+= resp[j][prop][improp];
+															}
+														}
+														var product =
+														{
+															id: j, highlight : highlight
+														};
+														highlightArray.push(product);
+													}
+												}
+											}
+										}
+										var suggestion = [];
+										if (rawData.response.docs.length == 0)
+											return suggestion;
+										var response = rawData.response.docs;
+										for (var i = 0; i < response.length; i++) {
+											var product =
+												{
+													id: i, title : response[i].title, docId : response[i].id
+												};
+											suggestion.push(product);
+										}
+										return suggestion;
+									}, model :
+										{
+											fields :
+												{
+													"id" :
+													{
+														type : "int"
+													}, 
+													"title" :
+														{
+															type : "string"
+													}, 
+													"docId" :
+														{
+															type : "string"
+														}
+												}
+										}
+								}
+						});
+				
+				dataSource_wikinews.fetch(function() {
+					var str="";
+					for (var i = 0; i < dataSource_wikinews.data().length; i++) {
+						var dataItem = dataSource_wikinews.get(i);
+						var link = dataSource_wikinews.get(i).title.replace(/ /g,"_");
+						var url = "http://en.wikinews.org/wiki/" + link;
+						var docId = dataItem.docId;
+						var tmpHighlight = 	"";
+						for (var j = 0; j < highlightArray.length; j++) {
+							if(docId === highlightArray[j].id){
+								tmpHighlight = highlightArray[j].highlight;
+								break;
+							}
+						}
+							
+						str+="<a href=" + url + "><em>" + dataSource_wikinews.get(i).title + "</em>" + "</a><br><br>" + tmpHighlight + "<br><br>";
+					}
+					if(str==="")
+						str = "<em><b>No results found</b></em>";
+					document.getElementById("middle-pane-content").innerHTML=str;
+				});
+				
+				// Query WikiQuote
+				
+				highlight = "";
+				var highlightArray = [];
+				var dataSource_wikiquote = new kendo.data.DataSource(
+						{
+							serverFiltering : true, transport :
+								{
+									read :
+										{
+											url : "Wikiquote/query", serverPaging : true, type : "GET", dataType : "json"
+										}, parameterMap : function(data) {
+										return	{
+												q : MLTQuery, take : data.take, skip : data.skip, rows : "5"
+											};
+									}
+								}, schema :
+								{
+									parse : function(rawData) {
+										
+										var resp = rawData.highlighting;
+										for(jp in resp){
+											var j = "" + jp;
+											if(resp.hasOwnProperty(j)){
+												for(var prop in resp[j]){
+													if(prop === "articlePlainText"){
+										     			highlight="";
+														for(var improp in resp[j][prop]){
+													        if(resp[j][prop].hasOwnProperty(improp)){
+													        	var string = "" + prop;
+													        		highlight+= resp[j][prop][improp];
+															}
+														}
+														var product =
+															{
+																id: j, highlight : highlight
+															};
+														highlightArray.push(product);
+													}
+												}
+											}
+										}
+										
+										var suggestion = [];
+										if (rawData.response.docs.length == 0)
+											return suggestion;
+										var response = rawData.response.docs;
+										for (var i = 0; i < response.length; i++) {
+											var product =
+												{
+													id: i, title : response[i].title, docId : response[i].id
+												};
+											suggestion.push(product);
+										}
+										return suggestion;
+									}, 
+									model :
+									{
+										fields :
+										{
+											"id" :
+											{
+												type : "int"
+											}, 
+											"title" :
+											{
+												type : "string"
+											}, 
+											"docId" :
+											{
+												type : "string"
+											}
+										}
+									}
+								}
+						});
+				
+				dataSource_wikiquote.fetch(function() {
+					var str="";
+					for (var i = 0; i < dataSource_wikiquote.data().length; i++) {
+						var dataItem = dataSource_wikiquote.get(i);
+						var link = dataSource_wikiquote.get(i).title.replace(/ /g,"_");
+						var url = "http://en.wikiquote.org/wiki/" + link;
+						var docId = dataItem.docId;
+						var tmpHighlight = 	"";
+						for (var j = 0; j < highlightArray.length; j++) {
+							if(docId === highlightArray[j].id){
+								tmpHighlight = highlightArray[j].highlight;
+								break;
+							}
+						}
+						str+="<a href=" + url + "><em>" + dataSource_wikiquote.get(i).title + "</em>" + "</a><br><br>" + tmpHighlight + "<br><br>";
+					}
+					if(str==="")
+						str = "<em><b>No results found</b></em>";
+					document.getElementById("bottom-pane-content").innerHTML=str;
+				});
+			});
+		});
+	}
+</script>
+</html>
+

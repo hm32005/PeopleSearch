@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="solr-webapp">
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/collection1"/>
+        <wb-resource deploy-path="/" source-path="/solr"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/solr/Wikipedia_importer/wikipedia_solr/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/solr"/>
+        <property name="context-root" value="solr-webapp"/>
+        <property name="java-output-path" value="/solr-webapp/bin"/>
+    </wb-module>
+</project-modules>

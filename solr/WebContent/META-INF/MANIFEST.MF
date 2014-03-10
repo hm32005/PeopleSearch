@@ -1,0 +1,2 @@
+Manifest-Version: 1.0
+Class-Path: WEB-INF/lib/solr-dataimporthandler-4.5.1.jar
